@@ -1,0 +1,113 @@
+﻿@model  IEnumerable<James.ViewModels.CartVM>
+
+
+
+
+@{
+    ViewBag.Title = "OrderList";
+    Layout = "~/Views/Shared/_LayoutMember.cshtml";
+}
+
+
+    
+    @*@using (Html.BeginForm("OrderList", "Order", FormMethod.Post,
+    new { enctype = "multipart/form-data" }))
+    {
+        @Html.EditorForModel()
+        <input type="submit" value="Save">
+
+    }*@
+<form method="post" action="@Url.Action("OrderList","Order")">
+    @Html.AntiForgeryToken()
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.oId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.productName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.orderQty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.productPrice)
+            </th>
+
+
+        </tr>
+
+        @foreach (var item in Model.OrderBy(x => x.oId))
+        {
+
+            <tr>
+                @Html.HiddenFor(model=>item.oId)
+                <td id="oId">
+              
+                    @Html.DisplayFor(model => item.oId)
+                   
+
+
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.productName)
+                </td>
+                <td>
+                    
+                    @Html.EditorFor(model => item.orderQty)
+                    @Html.ValidationMessageFor(model => item.orderQty, "", new { @class = "text-danger" })
+
+                </td>
+                @(item.orderQty * item.productPrice)
+
+
+           
+                    <td>
+
+                    <input type="submit" min="1" value="Confirm">
+                    @Html.ActionLink("Edit", "CCenter", "Acc") |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "DeleteCart", "Order", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
+            @*<tr>
+                    <td>
+
+                        @Html.DisplayFor(model => model.oId)
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.productName)
+                    </td>
+                    <td>
+
+                        @Html.EditorFor(model => model.orderQty)
+                    </td>
+
+
+
+                    <td>
+                        <input id="numpeople" name="數量" type="submit" min="1" value="confirm">
+                        @Html.ActionLink("Edit", "CCenter", "Acc") |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>*@
+        
+
+    </table>
+    <button type="submit" class="btn delicious-btn ml-3">Confirm</button>
+</form>
+    
+    @section scripts{
+        <script>
+
+
+
+
+
+        </script>
+        
+        
+        }

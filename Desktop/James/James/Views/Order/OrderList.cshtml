@@ -1,0 +1,186 @@
+﻿@model  James.ViewModels.CartVM
+
+
+
+
+@{
+    ViewBag.Title = "OrderList";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+
+
+@using (Html.BeginForm("OrderList", "Order", FormMethod.Post,
+    new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.cId)
+
+    <section class="shopping-cart spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="shopping__cart__table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Product</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.orderDetails)
+                                    {
+
+                                <tr>
+                                    @Html.HiddenFor(modelitem => item.cId)
+                                    <td>
+                                        @Html.DisplayFor(modelitem => item.productImg)
+                                    </td>
+                                   
+
+                                    <td class="product__cart__item">
+                                        <div class="product__cart__item__pic">
+                                            <img src="img/shop/cart/cart-4.jpg" alt="">
+                                        </div>
+                                        <div class="product__cart__item__text">
+                                            <h6>
+                                                @Html.DisplayFor(modelitem => item.productName)
+
+
+                                            </h6>
+                                            <h5> @Html.DisplayFor(modelitem => item.productPrice)</h5>
+                                        </div>
+                                    </td>
+                                    <td class="quantity__item">
+                                        <div class="quantity">
+                                            <div class="pro-qty" id="num">
+
+                                                <input type="number" min="0" max="100" value="@item.orderQty" />
+                                                @Html.EditorFor(modelitem => item.orderQty)
+                                                @Html.ValidationMessageFor(modelitem => item.orderQty, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="cart__price "><span class="totalprice">@((item.orderQty)*(item.productPrice))</span></td>
+                                    <td> <a type="submit" class="site-btn" style="margin-bottom: 3%; " href="@Url.Action("UpdateCart","Order")?oId=@item.oId">Confirm</a></td>
+                                    <td class="cart__close"><a class="icon_close" href="@Url.Action( "DeleteCart", "Order")?oId=@item.oId"></a></td>
+                                </tr>
+                                    }
+
+                                @*@for (int i = 0; i < Model.orderDetails.Count; i++)
+                                {
+
+                                    <tr>
+                                        @Html.HiddenFor(model => model.orderDetails[i].oId)
+                                        <td>*@
+                                            @*<input type="checkbox" class="chkclass" value="@Model.orderDetails[i].oId" />*@
+
+                                        @*</td>*@
+
+                                        @*<td class="product__cart__item">
+                                            <div class="product__cart__item__pic">
+                                                <img src="img/shop/cart/cart-4.jpg" alt="">
+                                            </div>
+                                            <div class="product__cart__item__text">
+                                                <h6>
+                                                    @Html.DisplayFor(model => model.orderDetails[i].productName)
+                                                    <span style="visibility:hidden;">@Html.DisplayFor(model => model.orderDetails[i].oId)</span>
+
+                                                </h6>
+                                                <h5> @Html.DisplayFor(model => model.orderDetails[i].productPrice)</h5>
+                                            </div>
+                                        </td>
+                                        <td class="quantity__item">
+                                            <div class="quantity">
+                                                <div class="pro-qty" id="num">
+
+                                                    <input type="number" min="0" max="100" id="qty" name="qty" value="@Model.orderDetails[i].orderQty" />
+                                                    @Html.EditorFor(model => model.orderDetails[i].orderQty)
+                                                    @Html.ValidationMessageFor(model => model.orderDetails[i].orderQty, "", new { @class = "text-danger" })
+
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="cart__price "><span class="totalprice">@(Model.orderDetails[i].TP)</span></td>
+                                        <td> <a type="submit" class="site-btn" style="margin-bottom: 3%; " href="@Url.Action("UpdateQty","Order")?oId=@Model.orderDetails[i].oId">Confirm</a></td>
+                                        <td class="cart__close"><a class="icon_close" href="@Url.Action( "DeleteCart", "Order")?oId=@Model.orderDetails[i].oId"></a></td>
+                                    </tr>
+                                          }
+                                            *@
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="continue__btn">
+                                <a href="#">Continue Shopping</a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="continue__btn update__btn">
+
+                                <button type="submit" class="site-btn" style="margin-bottom: 3%; ">save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="cart__discount">
+                        <h6>Discount codes</h6>
+                        <form action="#">
+                            <input type="text" placeholder="Coupon code">
+                            <button type="submit">Apply</button>
+                        </form>
+                    </div>
+                    <div class="cart__total">
+                        <h6>Cart total</h6>
+                        <ul>
+                            <li>Subtotal <span>@ViewBag.total</span></li>
+                            <li>Tax<span>@ViewBag.tax</span></li>
+                            <li>Total <span>@Session[James.Models.Common.CDictionary.TK_Cart_TOTALPRICE]</span></li>
+                        </ul>
+                        <a href="@Url.Action("ConfirmCart","Order")?oId=@Model.oId" class="primary-btn">Proceed to checkout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $("input[type='submit']").click(function () {
+                event.preventDefault();
+                var table = $(this).parent("button").prev("div");
+            
+                var namelist = [];
+                // use loop to find fields you need to pass
+                for (var i = 0; i < table.find("input").length; i++) {
+                    
+                    if (table.find("input")[i].name.includes("Qty")) {
+                        namelist.push(table.find("input")[i].value);
+                    }
+                }
+                var vm = [];
+                for (var i = 0; i < idlist.length; i++) {
+                    model.push({ orderQty: namelist[i] });
+                }
+                $.ajax({
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    type: 'POST',
+                    url: '/Order/OrderList',
+                    data: JSON.stringify({ 'vm': vm })
+                });
+            })
+        })
+    </script>
+}
+
+

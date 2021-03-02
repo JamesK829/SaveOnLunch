@@ -1,0 +1,177 @@
+﻿@using PagedList.Mvc
+
+@model James.ViewModels.vProductListVM
+
+
+@{
+    ViewBag.Title = "ProductList";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+
+@using (Html.BeginForm("ProductList", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @*foreach (var item in Model.styleItems)
+    {
+        <div class="categories">
+            <div class="container">
+                <div class="row">
+                    <div class="categories__slider owl-carousel">
+
+                        <div class="categories__item">
+                            <div class="categories__item__icon">
+                                <span class="flaticon-006-macarons"></span>
+                                <h5>@item.Text</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }*@
+    <!-- Categories Section Begin -->
+
+    <!-- Categories Section End -->
+<section class="product spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="class__sidebar" style="margin-bottom:5%;">
+
+                    <form action="#">
+                        <div style="margin-bottom: 3%;">
+                            @Html.EditorFor(x => x.searchParameter.productName, new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        <div style="margin-bottom: 3%;">
+                            @Html.DropDownListFor(x => x.searchParameter.style, (SelectList)Model.styleItems, "-- select item --", new { @class = "form-control" })
+                        </div>
+                        <div style="text-align:center">
+                            <button type="submit" class="site-btn" style="margin-left:3%; margin-right:5%;margin-bottom:1%;">Search</button>
+                            <button type="reset" style=" margin-left: 5%;  margin-bottom: 1%; margin-right: 3%;" class="site-btn">Cancel</button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+
+
+
+
+            <div class="row" style="width:100vw;">
+                
+                    @foreach (var item in Model.products)
+                    {
+                        @Html.HiddenFor(modelitem => item.pId)
+                        <div class="col-lg-3 col-md-6 col-sm-6">
+                            <div class="product__item">
+                                <a href="@Url.Action("ProductDetail","Product")?pId=@item.pId">
+                                    <div class="product__item__pic set-bg" style="background-image:url('@item.pImage');">
+
+                                        <div class="product__label">
+                                            <span>
+                                                @Html.DisplayFor(modelItem => item.Style.style)
+                                            </span>
+                                        </div>
+                                    </div>
+                                </a>
+                                @*<input type="number" value="@Session[James.Models.Common.CDictionary.TK_Cart_Qty]" min="0" max="100">*@
+
+                                <div class="product__item__text">
+                                    <h6><a href="#"> @Html.DisplayFor(modelItem => item.pName)</a></h6>
+                                    @*<h5 style="visibility:hidden;">@Html.DisplayFor(modelitem=>item.pId)</h5>*@
+                                    <div class="product__item__price">
+                                        @Html.DisplayFor(modelItem => item.pPrice)
+                                    </div>
+                                    <div class="cart_add">
+                                        @if (Session[James.Models.Common.CDictionary.SK_LOGINED_USER_ID] != null)
+                                        {
+                                            <a href="@Url.Action("AddCart", "Order")?pId=@item.pId"> Add to cart</a>
+
+                                            if (Session[James.Models.Common.CDictionary.SK_MEMBER_AUTHORITY].ToString() == "3")
+                                            {
+                                                <a href="@Url.Action("EditProduct", "Product")?pId=@item.pId"> Edit</a>
+                                                <a href="@Url.Action("ProductDelete", "Product")?pId=@item.pId"> Delete</a>
+                                            }
+
+
+                                        }
+                                        else
+                                        {
+                                            <a href="@Url.Action("login","Acc")">Log In</a>
+                                            <a href="@Url.Action("Register","Acc")">Sign Up</a>
+
+                                        }
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                
+            </div>
+             
+            
+
+        </div>
+        <div class="row" style="text-align:center;">
+            <div class="shop__pagination col-lg-12" >
+               @Html.PagedListPager(Model.products, page => Url.Action("ProductList", new { page }))
+
+              @*<span class="arrow_carrot-right"></span>*@
+            </div>
+        </div>
+    </div>
+   
+   
+</section>
+}
+
+
+
+@if (Session[James.Models.Common.CDictionary.SK_LOGINED_USER_ID] == null)
+{
+    <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="col-lg-12 alert1 mb-2">
+                        <i class="fa fa-exclamation-circle waitstatus"
+                           style="font-size: 28px;line-height: 60px;"></i><br>
+                        <h5 class="waitstatus">Please Log In Before Purchase</h5>
+                        <a href="@Url.Action("login", "Acc")" class="dialog-a">Log In</a>｜<a href="@Url.Action("Register", "Acc")" class="dialog-a">Sign Up</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>}
+
+
+@*@section scripts
+    {
+                        <script type="text/javascript">
+                            $(function () {
+                                $('.pagination>li>a[href]').each(function (i, item) {
+                                    var page = $(item).attr('href').replace('/Product?page=', '');
+                                    $(item).attr('href', '#').click(function () { postPage(page); });
+
+                                });
+                            });
+
+                            function postPage(page) {
+                                var targetFormId = '#ProductList';
+                                if ($(targetFormId).size() > 0) {
+                                    $('<input>')
+                                        .attr({ type: 'hidden', id: 'PageIndex', name: 'PageIndex', value: page })
+                                        .appendTo($(targetFormId));
+                                    $(targetFormId).submit();
+                                }
+                            };
+                        </script>
+
+                    }*@
+

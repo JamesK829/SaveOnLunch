@@ -1,0 +1,139 @@
+﻿@model James.ViewModels.vProductVM
+
+@{
+    ViewBag.Title = "ProductCreate";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+@using (Html.BeginForm("EditProduct", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @*@Html.AntiForgeryToken()*@
+    @Html.HiddenFor(model => model.pId)
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="checkout spad">
+        <div class="container">
+            <div class="checkout__form">
+                <form action="#">
+                    <div class="row" style="text-align: left; justify-content: center;">
+                        <div class="col-lg-6">
+                            <div class="row">
+
+
+                                <div class="col-12">
+                                    <img src="@Model.productImg" id="img" onerror="this.src='https://icon-library.com/images/no-image-icon/no-image-icon-5.jpg'">
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="file" class="site-btn">
+                                        Select image:
+                                        <input class="hide" id="file" type="file" style="display:none" name="image" multiple accept="image/gif, image/png, image/jpg, image/jpeg" />
+
+                                    </label>
+
+                                    <div class="col-lg-12">
+                                        <div class="checkout__input">
+                                            <p>Offer Date<span>*</span></p>
+
+
+                                            @Html.EditorFor(model => model.offerdate, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.offerdate, "", new { @class = "text-danger" })
+                                            <div>
+                                                <input id="datePick" type="text" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-6 col-md-6">
+
+                            <div class="row">
+
+                                <div class="col-12">
+                                    <div class="checkout__input">
+                                        <p>Product Name<span>*</span></p>
+                                        @Html.EditorFor(model => model.productName, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.productName, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="checkout__input">
+                                        <p>Product Price<span>*</span></p>
+
+
+                                        @Html.EditorFor(model => model.productPrice, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.productPrice, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-lg-12">
+                                        <div class="checkout__input">
+                                            <p>Style<span>*</span></p>
+
+
+                                            @Html.DropDownListFor(model => model.sId, Model.Style, new { @class = "form-control w-100 error" })
+                                            @Html.ValidationMessageFor(model => model.sId, "", new { @class = "text-danger" })
+
+                                        </div>
+                                    </div>
+                                <div class="col-lg-12">
+                                    <div class="checkout__input">
+                                        <p>Offer Date<span>*</span></p>
+
+
+                                        @Html.EditorFor(model => model.offerdate, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.offerdate, "", new { @class = "text-danger" })
+                                        <div>
+                                            <input id="datePick" type="text" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="checkout__input col-lg-12">
+                                    <p>Product Detail<span>*</span></p>
+                                    @Html.EditorFor(model => model.productContent, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.productContent, "", new { @class = "text-danger" })
+                                </div>
+
+
+
+                                <div class="form-group mt-3 col-lg-12" style="justify-content: center; margin-top: 3%; text-align: center;">
+                                    <button type="submit" class="site-btn" style="margin-bottom: 3%; ">Save</button>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+}
+@section scripts{
+    <script>
+        $("#file").change(function () {
+            readURL(this);
+        });
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $("#img").attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

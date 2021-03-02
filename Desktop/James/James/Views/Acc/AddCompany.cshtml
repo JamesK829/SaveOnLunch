@@ -1,0 +1,88 @@
+﻿@model James.ViewModels.Account.vCompanyVM
+@{
+    ViewBag.Title = "Add New Company";
+}
+
+<h2>Register</h2>
+
+<form action="@Url.Action("AddCompany","Acc")" method="post">
+    <div class="form-horizontal">
+        <hr />
+        @Html.AntiForgeryToken()
+        <div>
+            <div class="row">
+                <div class="col-lg-2">Company Name</div>
+                <div class="col-lg-10">
+                    @Html.EditorFor(model => model.companyName, new { htmlAttributes = new { @class = "form-control", @id = "Account", @placeholder = "Account" } })
+                    @Html.ValidationMessageFor(model => model.companyName, "", new { @class = "text-danger" })
+                </div>
+
+
+                <div class="col-lg-2">Company Branch</div>
+                <div class="col-lg-10">
+                    @Html.EditorFor(model => model.companyBranch, new { htmlAttributes = new { @class = "form-control", @id = "CompanyBranch", @placeholder = "Password" } })
+                    @Html.ValidationMessageFor(model => model.companyBranch, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-lg-2">Comapny Address</div>
+                <div class="col-lg-10">
+                    @Html.EditorFor(model => model.companyAdd, new { htmlAttributes = new { @class = "form-control", @id = " ConfirmPwd", @placeholder = "Password" } })
+                    @Html.ValidationMessageFor(model => model.companyAdd, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-lg-2">Confirm Password</div>
+                <div class="col-lg-10">
+                    @Html.DropDownListFor(model => model.cityId, Model.selectPV, new { htmlAttributes = new { @class = "form-control", @id = "pv" } })
+                    @Html.ValidationMessageFor(model => model.cityId, "", new { @class = "text-danger" })
+                </div>
+               
+
+            </div>
+
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Register" clss="btn btn-default" />
+                @ViewBag.Message
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <script>
+      $(document).ready(function () {
+        $('#pv').change(function () { ChangeCustomer(); });
+    });
+
+    function ChangeCustomer() {
+        var selectedValue = $('#pv option:selected').val();
+        if ($.trim(selectedValue).length > 0) {
+            GetOrders(selectedValue);
+        }
+    }
+
+    function GetOrders(province) {
+        $.ajax({
+            url: '@Url.Action("CanadaCities", "Display")',
+            data: { province: province },
+            type: 'post',
+            cache: false,
+            async: false,
+            dataType: 'json',
+            success: function (data) {
+                if (data.length > 0) {
+                    $('#ct').empty();
+                  
+                    $.each(data, function (item) {
+                        $('#ct').append($('<option></option>').text(item.Value));
+                    });
+                }
+            }
+        });
+    }
+
+    </script>
+    
+    
+    
+</form>
