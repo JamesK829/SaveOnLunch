@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3c3c627a78b64cb092f006bf97227cb6" Name="Diagram1">
+        <EntityTypeShape EntityType="dbjModel1.Admin" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbjModel1.CanadaCities" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbjModel1.CanadaPV" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbjModel1.Company" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbjModel1.Customer" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbjModel1.OfferDate" Width="1.5" PointX="9.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbjModel1.OrderList" Width="1.5" PointX="5.25" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbjModel1.Product" Width="1.5" PointX="7.5" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbjModel1.Restaurant" Width="1.5" PointX="5.25" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbjModel1.StorePoint" Width="1.5" PointX="5.25" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbjModel1.Style" Width="1.5" PointX="5.25" PointY="16.25" IsExpanded="true" />
+        <AssociationConnector Association="dbjModel1.FK_Admin_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="dbjModel1.FK_CanadaCities_CanadaPV" ManuallyRouted="false" />
+        <AssociationConnector Association="dbjModel1.FK_Customer_Comapny" ManuallyRouted="false" />
+        <AssociationConnector Association="dbjModel1.FK_OrderList_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="dbjModel1.FK_StorePoint_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="dbjModel1.FK_Table_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="dbjModel1.FK_OfferDate_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="dbjModel1.FK_OrderList_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="dbjModel1.FK_Product_Restaurant" ManuallyRouted="false" />
+        <AssociationConnector Association="dbjModel1.FK_Product_Style" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="dbjModel1.transaction" Width="1.5" PointX="7.5" PointY="5.75" />
+        <AssociationConnector Association="dbjModel1.FK_transaction_Customer" />
+        <AssociationConnector Association="dbjModel1.FK_transaction_Restaurant" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

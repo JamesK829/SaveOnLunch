@@ -1,0 +1,65 @@
+﻿@model James.ViewModels.CartVM
+@{
+    ViewBag.Title = "Product";
+    Layout = "~/Views/Shared/_LayoutMember.cshtml";
+}
+@using (Html.BeginForm("Purchase", "Order", FormMethod.Post,
+    new { enctype = "multipart/form-data" }))
+{
+    <div class="row">
+
+        @foreach (var item in Model.productList)
+        {
+           
+            <div class="col-4">
+                <div class="thumbnail">
+                    <img src="~img/@item.pImg" />
+                    <div class="caption">
+                        <h2>@item.pName</h2>
+                        <p>@item.pPrice</p>
+                        @if (Session[James.Models.Common.CDictionary.SK_PAGE_BEFORE_LOGIN] == null)
+                        {
+                            <p></p>
+                        }
+                        else
+                        {
+                            <p><a href="@Url.Action("Purchase", "Order")?pId=@item.pId" class="btn btn-primary" id="buy">Add To Cart</a></p>
+
+
+                            @* 數量 *@
+                            <input id="qty" name="數量" type="number" min="1" value="1" placeholder="人數" oninput="totalprice()">
+                            @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+
+
+                        }
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        }
+        
+    </div>
+}
+    <script>
+        $(document).ready(function () {
+            $("#buy").click(function () {
+                $.ajax({
+                    type: post,
+                    url: "Order/Purchase",
+                    data: {
+                        qty: $("#qty").val()
+
+                    }
+
+
+                });
+            });
+
+        })
+
+
+    </script>

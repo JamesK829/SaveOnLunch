@@ -1,0 +1,359 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dbjModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="aId" />
+    </Key>
+    <Property Name="aId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="cId" Type="Int32" />
+    <Property Name="aDepartment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_Admin_Customer" FromRole="Admin" ToRole="Customer" />
+  </EntityType>
+  <EntityType Name="CanadaCities">
+    <Key>
+      <PropertyRef Name="cityId" />
+    </Key>
+    <Property Name="cityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="province" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pvId" Type="Int32" />
+    <NavigationProperty Name="CanadaPV" Relationship="Self.FK_CanadaCities_CanadaPV" FromRole="CanadaCities" ToRole="CanadaPV" />
+  </EntityType>
+  <EntityType Name="CanadaPV">
+    <Key>
+      <PropertyRef Name="pvId" />
+    </Key>
+    <Property Name="pvId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="province" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="CanadaCities" Relationship="Self.FK_CanadaCities_CanadaPV" FromRole="CanadaPV" ToRole="CanadaCities" />
+  </EntityType>
+  <EntityType Name="Company">
+    <Key>
+      <PropertyRef Name="CPId" />
+    </Key>
+    <Property Name="CPId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CPName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CPPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CPBranch" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CPAdd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_Customer_Comapny" FromRole="Company" ToRole="Customer" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="cId" />
+    </Key>
+    <Property Name="cId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="cEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="cPwd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="cFName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="cLName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="cPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="cPoint" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="cAuthority" Type="Int32" Nullable="false" />
+    <Property Name="cCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CPId" Type="Int32" />
+    <Property Name="cBD" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="cAvatar" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Admin" Relationship="Self.FK_Admin_Customer" FromRole="Customer" ToRole="Admin" />
+    <NavigationProperty Name="Company" Relationship="Self.FK_Customer_Comapny" FromRole="Customer" ToRole="Company" />
+    <NavigationProperty Name="OrderList" Relationship="Self.FK_OrderList_Customer" FromRole="Customer" ToRole="OrderList" />
+    <NavigationProperty Name="StorePoint" Relationship="Self.FK_StorePoint_Customer" FromRole="Customer" ToRole="StorePoint" />
+    <NavigationProperty Name="Restaurant" Relationship="Self.FK_Table_Customer" FromRole="Customer" ToRole="Restaurant" />
+    <NavigationProperty Name="transaction" Relationship="dbjModel1.FK_transaction_Customer" FromRole="Customer" ToRole="transaction" />
+  </EntityType>
+  <EntityType Name="OfferDate">
+    <Key>
+      <PropertyRef Name="dId" />
+    </Key>
+    <Property Name="dId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="pId" Type="Int32" />
+    <Property Name="offerDate1" Type="DateTime" Precision="7" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_OfferDate_Product" FromRole="OfferDate" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="OrderList">
+    <Key>
+      <PropertyRef Name="oId" />
+    </Key>
+    <Property Name="oId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="cId" Type="Int32" Nullable="false" />
+    <Property Name="pId" Type="Int32" Nullable="false" />
+    <Property Name="oQty" Type="Int32" Nullable="false" />
+    <Property Name="oDate" Type="DateTime" Precision="3" />
+    <Property Name="oRDate" Type="DateTime" Precision="0" />
+    <Property Name="oStatus" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_OrderList_Customer" FromRole="OrderList" ToRole="Customer" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_OrderList_Product" FromRole="OrderList" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="pId" />
+    </Key>
+    <Property Name="pId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="pName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pPrice" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="pImg" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="pInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="pDate" Type="DateTime" Precision="0" />
+    <Property Name="pRate" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="pRContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="pNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="sId" Type="Int32" />
+    <Property Name="rId" Type="Int32" />
+    <Property Name="pImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="OfferDate" Relationship="Self.FK_OfferDate_Product" FromRole="Product" ToRole="OfferDate" />
+    <NavigationProperty Name="OrderList" Relationship="Self.FK_OrderList_Product" FromRole="Product" ToRole="OrderList" />
+    <NavigationProperty Name="Restaurant" Relationship="Self.FK_Product_Restaurant" FromRole="Product" ToRole="Restaurant" />
+    <NavigationProperty Name="Style" Relationship="Self.FK_Product_Style" FromRole="Product" ToRole="Style" />
+  </EntityType>
+  <EntityType Name="Restaurant">
+    <Key>
+      <PropertyRef Name="rId" />
+    </Key>
+    <Property Name="rId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="rName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="style" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="cId" Type="Int32" Nullable="false" />
+    <Property Name="province" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_Table_Customer" FromRole="Restaurant" ToRole="Customer" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_Product_Restaurant" FromRole="Restaurant" ToRole="Product" />
+    <NavigationProperty Name="transaction" Relationship="dbjModel1.FK_transaction_Restaurant" FromRole="Restaurant" ToRole="transaction" />
+  </EntityType>
+  <EntityType Name="StorePoint">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="cId" Type="Int32" Nullable="false" />
+    <Property Name="point" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="StoreDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_StorePoint_Customer" FromRole="StorePoint" ToRole="Customer" />
+  </EntityType>
+  <EntityType Name="Style">
+    <Key>
+      <PropertyRef Name="sId" />
+    </Key>
+    <Property Name="sId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="style" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_Product_Style" FromRole="Style" ToRole="Product" />
+  </EntityType>
+  <Association Name="FK_Admin_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+    <End Role="Admin" Type="Self.Admin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="cId" />
+      </Principal>
+      <Dependent Role="Admin">
+        <PropertyRef Name="cId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CanadaCities_CanadaPV">
+    <End Role="CanadaPV" Type="Self.CanadaPV" Multiplicity="0..1" />
+    <End Role="CanadaCities" Type="Self.CanadaCities" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CanadaPV">
+        <PropertyRef Name="pvId" />
+      </Principal>
+      <Dependent Role="CanadaCities">
+        <PropertyRef Name="pvId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Customer_Comapny">
+    <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+    <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="CPId" />
+      </Principal>
+      <Dependent Role="Customer">
+        <PropertyRef Name="CPId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderList_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="OrderList" Type="Self.OrderList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="cId" />
+      </Principal>
+      <Dependent Role="OrderList">
+        <PropertyRef Name="cId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StorePoint_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="StorePoint" Type="Self.StorePoint" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="cId" />
+      </Principal>
+      <Dependent Role="StorePoint">
+        <PropertyRef Name="cId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Table_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="cId" />
+      </Principal>
+      <Dependent Role="Restaurant">
+        <PropertyRef Name="cId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OfferDate_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="OfferDate" Type="Self.OfferDate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="pId" />
+      </Principal>
+      <Dependent Role="OfferDate">
+        <PropertyRef Name="pId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderList_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="OrderList" Type="Self.OrderList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="pId" />
+      </Principal>
+      <Dependent Role="OrderList">
+        <PropertyRef Name="pId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Restaurant">
+    <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="0..1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Restaurant">
+        <PropertyRef Name="rId" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="rId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Style">
+    <End Role="Style" Type="Self.Style" Multiplicity="0..1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Style">
+        <PropertyRef Name="sId" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="sId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="dbjEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Admin" EntityType="Self.Admin" />
+    <EntitySet Name="CanadaCities" EntityType="Self.CanadaCities" />
+    <EntitySet Name="CanadaPV" EntityType="Self.CanadaPV" />
+    <EntitySet Name="Company" EntityType="Self.Company" />
+    <EntitySet Name="Customer" EntityType="Self.Customer" />
+    <EntitySet Name="OfferDate" EntityType="Self.OfferDate" />
+    <EntitySet Name="OrderList" EntityType="Self.OrderList" />
+    <EntitySet Name="Product" EntityType="Self.Product" />
+    <EntitySet Name="Restaurant" EntityType="Self.Restaurant" />
+    <EntitySet Name="StorePoint" EntityType="Self.StorePoint" />
+    <EntitySet Name="Style" EntityType="Self.Style" />
+    <AssociationSet Name="FK_Admin_Customer" Association="Self.FK_Admin_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Admin" EntitySet="Admin" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CanadaCities_CanadaPV" Association="Self.FK_CanadaCities_CanadaPV">
+      <End Role="CanadaPV" EntitySet="CanadaPV" />
+      <End Role="CanadaCities" EntitySet="CanadaCities" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customer_Comapny" Association="Self.FK_Customer_Comapny">
+      <End Role="Company" EntitySet="Company" />
+      <End Role="Customer" EntitySet="Customer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderList_Customer" Association="Self.FK_OrderList_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="OrderList" EntitySet="OrderList" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StorePoint_Customer" Association="Self.FK_StorePoint_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="StorePoint" EntitySet="StorePoint" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Table_Customer" Association="Self.FK_Table_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Restaurant" EntitySet="Restaurant" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OfferDate_Product" Association="Self.FK_OfferDate_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="OfferDate" EntitySet="OfferDate" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderList_Product" Association="Self.FK_OrderList_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="OrderList" EntitySet="OrderList" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Restaurant" Association="Self.FK_Product_Restaurant">
+      <End Role="Restaurant" EntitySet="Restaurant" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Style" Association="Self.FK_Product_Style">
+      <End Role="Style" EntitySet="Style" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <EntitySet Name="transaction" EntityType="dbjModel1.transaction" />
+    <AssociationSet Name="FK_transaction_Customer" Association="dbjModel1.FK_transaction_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="transaction" EntitySet="transaction" />
+    </AssociationSet>
+    <AssociationSet Name="FK_transaction_Restaurant" Association="dbjModel1.FK_transaction_Restaurant">
+      <End Role="Restaurant" EntitySet="Restaurant" />
+      <End Role="transaction" EntitySet="transaction" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="transaction">
+    <Key>
+      <PropertyRef Name="tId" />
+    </Key>
+    <Property Name="tId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="cId" Type="Int32" />
+    <Property Name="companyIncome" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="tDate" Type="DateTime" Precision="3" />
+    <Property Name="rId" Type="Int32" />
+    <Property Name="restaurantIncome" Type="Decimal" Precision="18" Scale="0" />
+    <NavigationProperty Name="Customer" Relationship="dbjModel1.FK_transaction_Customer" FromRole="transaction" ToRole="Customer" />
+    <NavigationProperty Name="Restaurant" Relationship="dbjModel1.FK_transaction_Restaurant" FromRole="transaction" ToRole="Restaurant" />
+  </EntityType>
+  <Association Name="FK_transaction_Customer">
+    <End Type="dbjModel1.Customer" Role="Customer" Multiplicity="0..1" />
+    <End Type="dbjModel1.transaction" Role="transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="cId" />
+      </Principal>
+      <Dependent Role="transaction">
+        <PropertyRef Name="cId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_transaction_Restaurant">
+    <End Type="dbjModel1.Restaurant" Role="Restaurant" Multiplicity="0..1" />
+    <End Type="dbjModel1.transaction" Role="transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Restaurant">
+        <PropertyRef Name="rId" />
+      </Principal>
+      <Dependent Role="transaction">
+        <PropertyRef Name="rId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
