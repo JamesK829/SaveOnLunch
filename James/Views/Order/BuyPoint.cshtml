@@ -1,0 +1,53 @@
+﻿@model James.ViewModels.vStorePointVM
+
+
+@{ ViewBag.Title = "Store Point";
+                Layout = "~/Views/Shared/_Layout1.cshtml"; }
+
+
+
+
+<!-- ##### BuyPoint Start ##### -->
+<div class="contact-area section-padding-0-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="contact-form-area">
+                    @using (Html.BeginForm(
+                    "BuyPoint",
+                    "Order",
+                    FormMethod.Post
+                    ))
+                    {
+        @Html.AntiForgeryToken()
+                        <div class="row">
+                            <div class="col-12 mt-5">
+                                <div class="input-font">P</div>
+                                @Html.EditorFor(model => model.point, new { htmlAttributes = new { @class = "form-control", @id = "pointqty", @placeholder = "需求數量", @oninput = "dollar()", @style = "padding-right: 60px;" } })
+                            </div>
+                            <div class="row mt-2">
+                                <div style="padding-left: 4rem">Equls To CAD</div>
+                                <div style="position: absolute; right:3rem" id="dollars">CAD$</div>
+                            </div>
+
+                            <div class="col-12 text-center">
+                                <button class="btn delicious-btn mt-30" type="submit">Confirm</button>
+                            </div>
+                        </div>}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ##### BuyPoint End ##### -->
+
+@section scripts {
+    <script>function dollar() {
+            var dollar = $('input[id=pointqty]').val();
+            $('#dollars').html(`<span>CAD${dollar}</span>`);
+        }</script>
+    @* 驗證用 *@
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

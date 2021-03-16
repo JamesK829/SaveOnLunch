@@ -1,0 +1,82 @@
+﻿@model James.ViewModels.vRestaurantVM
+
+@{ ViewBag.Title = "Restaurant";
+    Layout = "~/Views/Shared/_LayoutMember.cshtml"; }
+
+<h2>Restaurant Create</h2>
+
+@using (Html.BeginForm("RestaurantCreate", "Acc", FormMethod.Post))
+{
+
+                @Html.HiddenFor(vm => vm.cId)
+
+
+                               
+                                <form action="#" method="post">
+                                    <div class="form-horizontal">
+                                        <h4>Product</h4>
+                                        <hr />
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.RestaurantName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            <div class="col-md-10">
+                                                @Html.EditorFor(model => model.RestaurantName, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.RestaurantName, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-10" id="pv">
+                                                @Html.DisplayFor(model => model.cId)
+                                               
+                                            </div>
+                                            <div class="col-md-10" id="pv">
+                                                @Html.DropDownListFor(model => model.RProvince, Model.province, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.RProvince, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="col-md-10" id="ct">
+                                                @Html.DropDownListFor(model => model.RCity, Model.city, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.RCity, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                        <div class="form-group">
+                                            <div class="col-md-offset-2 col-md-10">
+                                                <input type="submit" value="Create" class="btn btn-default" />
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                </form>
+
+}
+<script>
+$(document).ready(function () {
+    $("#pv").change(function () {
+        $("#ct").empty();
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("GetCityByProvince")',
+            dataType: "json",
+            data: { province: $("#pv").val() },
+            success: function (mems) {
+            $.each(mems, function (i, member) {
+            $("#ct").append(
+            '<option value="' + member.Value + '">' + member.Text + "</option>"
+            );
+            });
+            },
+            error: function (ex) {
+            alert("Failed to retrieve states : " + ex);
+            },
+            }); // ajax end
+            return false;
+            }); // change end
+
+</script>

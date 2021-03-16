@@ -1,0 +1,135 @@
+﻿@using PagedList.Mvc
+
+@model James.ViewModels.vProductListVM
+@{
+    ViewBag.Title = "Product";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+
+}
+
+@section Breadcumb{
+
+
+    <!-- Hero Section Begin -->
+    <!-- Hero Section End -->
+    <!-- Categories Section Begin -->
+    <div class="categories">
+        <div class="container">
+            <div class="row">
+                <div class="categories__slider owl-carousel">
+                    <div class="categories__item">
+                        <div class="categories__item__icon">
+                            <span class="flaticon-029-cupcake-3"></span>
+                            <h5>Japanese</h5>
+                        </div>
+                    </div>
+                    <div class="categories__item">
+                        <div class="categories__item__icon">
+                            <span class="flaticon-034-chocolate-roll"></span>
+                            <h5>Cuisine</h5>
+                        </div>
+                    </div>
+                    <div class="categories__item">
+                        <div class="categories__item__icon">
+                            <span class="flaticon-005-pancake"></span>
+                            <h5>Chinese</h5>
+                        </div>
+                    </div>
+                    <div class="categories__item">
+                        <div class="categories__item__icon">
+                            <span class="flaticon-030-cupcake-2"></span>
+                            <h5>Tai</h5>
+                        </div>
+                    </div>
+                    <div class="categories__item">
+                        <div class="categories__item__icon">
+                            <span class="flaticon-006-macarons"></span>
+                            <h5>Korean</h5>
+                        </div>
+                    </div>
+                    <div class="categories__item">
+                        <div class="categories__item__icon">
+                            <span class="flaticon-006-macarons"></span>
+                            <h5>Canadian</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Categories Section End -->
+    <!-- Product Section Begin -->
+    <section class="product spad">
+        <div class="container">
+            @using (Html.BeginForm(
+                     "ProductList",
+                     "Product",
+                     FormMethod.Post,
+                     new { enctype = "multipart/form-data" }))
+
+            {
+
+            <div class="row">
+                @Html.PagedListPager(Model.products, page => Url.Action("ProductList", new { page }))
+
+                @foreach (var item in Model.products)
+                {
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="product__item">
+                            <div class="product__item__pic set-bg" data-setbg="img/shop/@item.pImage">
+                                <div class="product__label">
+                                    <span>Cupcake</span>
+                                </div>
+                            </div>
+                            <div class="product__item__text">
+                                <h6><a href="#"> @Html.DisplayFor(modelItem => item.pName)</a></h6>
+                                <div class="product__item__price">@item.pPrice</div>
+                                <div class="cart_add">
+
+                                    <a href="@Url.Action("AddCart", "order")?pId=@item.pId">Add to cart</a>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                }
+
+
+
+
+            </div>
+            }
+        </div>
+
+    </section>
+    <!-- Product Section End -->
+    <!-- Class Section Begin -->
+    <section class="class spad">
+        <div class="container">
+            <div class="row" style="text-align: center; margin: auto;">
+                <div class="col-lg-12" style="text-align: center;">
+                    <div class="class__form">
+                        <div class="section-title">
+                            <span style="font-size: 30px;">SIGN UP FOR OUR NEWSLETTER</span>
+
+                        </div>
+                        <form action="#">
+                            <input type="text" placeholder="Name">
+                            <input type="email" placeholder="Email">
+
+
+
+                            <a href="@Html.Action("Register")" class="site-btn">registration</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+}

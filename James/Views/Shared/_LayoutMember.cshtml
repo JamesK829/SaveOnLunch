@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Save On Lunch</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Chrt-Member", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Product List", "Index", "Acc")</li>
+                    <li>@Html.ActionLink("RestaurantCreate", "RestaurantCreate", "Acc")</li>
+                    <li>@Html.ActionLink("Product List", "ProductList", "Product")</li>
+                    <li>@Html.ActionLink("BuyPoint", "BuyPoint", "Order")</li>
+                    <li>@Html.ActionLink("Restaurant","RestaurantCreate","Acc")</li>
+                    <li>@Html.ActionLink("OrderList", "OrderList", "Order")</li>
+                 
+                    <li>@Html.ActionLink("Log Out", "login", "Acc")</li>
+                    <li>@Html.ActionLink("Member Center", "CCenter", "Acc")</li>
+                    <li>@Html.ActionLink("EditMemberInfo", "EditMemberInfo", "Acc")</li>
+                    <li><a href="#">@Session["Welcome"]</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - 我的 ASP.NET 應用程式</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

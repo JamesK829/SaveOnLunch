@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="dbjModelStoreContainer" CdmEntityContainer="dbjEntities">
+    <EntitySetMapping Name="Company">
+      <EntityTypeMapping TypeName="dbjModel.Company">
+        <MappingFragment StoreEntitySet="Company">
+          <ScalarProperty Name="CPAdd" ColumnName="CPAdd" />
+          <ScalarProperty Name="CPId" ColumnName="CPId" />
+          <ScalarProperty Name="CPName" ColumnName="CPName" />
+          <ScalarProperty Name="CPPhone" ColumnName="CPPhone" />
+          <ScalarProperty Name="CPBranch" ColumnName="CPBranch" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customer">
+      <EntityTypeMapping TypeName="dbjModel.Customer">
+        <MappingFragment StoreEntitySet="Customer">
+          <ScalarProperty Name="cAvatar" ColumnName="cAvatar" />
+          <ScalarProperty Name="cBD" ColumnName="cBD" />
+          <ScalarProperty Name="cId" ColumnName="cId" />
+          <ScalarProperty Name="cEmail" ColumnName="cEmail" />
+          <ScalarProperty Name="cPwd" ColumnName="cPwd" />
+          <ScalarProperty Name="cFName" ColumnName="cFName" />
+          <ScalarProperty Name="cLName" ColumnName="cLName" />
+          <ScalarProperty Name="cPhone" ColumnName="cPhone" />
+          <ScalarProperty Name="cPoint" ColumnName="cPoint" />
+          <ScalarProperty Name="cAuthority" ColumnName="cAuthority" />
+          <ScalarProperty Name="cCity" ColumnName="cCity" />
+          <ScalarProperty Name="CPId" ColumnName="CPId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderList">
+      <EntityTypeMapping TypeName="dbjModel.OrderList">
+        <MappingFragment StoreEntitySet="OrderList">
+          <ScalarProperty Name="oId" ColumnName="oId" />
+          <ScalarProperty Name="cId" ColumnName="cId" />
+          <ScalarProperty Name="pId" ColumnName="pId" />
+          <ScalarProperty Name="oQty" ColumnName="oQty" />
+          <ScalarProperty Name="oDate" ColumnName="oDate" />
+          <ScalarProperty Name="oRDate" ColumnName="oRDate" />
+          <ScalarProperty Name="oStatus" ColumnName="oStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Product">
+      <EntityTypeMapping TypeName="dbjModel.Product">
+        <MappingFragment StoreEntitySet="Product">
+          <ScalarProperty Name="pImage" ColumnName="pImage" />
+          <ScalarProperty Name="rId" ColumnName="rId" />
+          <ScalarProperty Name="sId" ColumnName="sId" />
+          <ScalarProperty Name="pId" ColumnName="pId" />
+          <ScalarProperty Name="pName" ColumnName="pName" />
+          <ScalarProperty Name="pPrice" ColumnName="pPrice" />
+          <ScalarProperty Name="pImg" ColumnName="pImg" />
+          <ScalarProperty Name="pInfo" ColumnName="pInfo" />
+          <ScalarProperty Name="pDate" ColumnName="pDate" />
+          <ScalarProperty Name="pRate" ColumnName="pRate" />
+          <ScalarProperty Name="pRContent" ColumnName="pRContent" />
+          <ScalarProperty Name="pNum" ColumnName="pNum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StorePoint">
+      <EntityTypeMapping TypeName="dbjModel.StorePoint">
+        <MappingFragment StoreEntitySet="StorePoint">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="cId" ColumnName="cId" />
+          <ScalarProperty Name="point" ColumnName="point" />
+          <ScalarProperty Name="StoreDate" ColumnName="StoreDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Style">
+      <EntityTypeMapping TypeName="dbjModel.Style">
+        <MappingFragment StoreEntitySet="Style">
+          <ScalarProperty Name="style" ColumnName="style" />
+          <ScalarProperty Name="sId" ColumnName="sId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Admin">
+      <EntityTypeMapping TypeName="dbjModel.Admin">
+        <MappingFragment StoreEntitySet="Admin">
+          <ScalarProperty Name="aDepartment" ColumnName="aDepartment" />
+          <ScalarProperty Name="cId" ColumnName="cId" />
+          <ScalarProperty Name="aId" ColumnName="aId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Restaurant">
+      <EntityTypeMapping TypeName="dbjModel.Restaurant">
+        <MappingFragment StoreEntitySet="Restaurant">
+          <ScalarProperty Name="province" ColumnName="province" />
+          <ScalarProperty Name="cId" ColumnName="cId" />
+          <ScalarProperty Name="style" ColumnName="style" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="rName" ColumnName="rName" />
+          <ScalarProperty Name="rId" ColumnName="rId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CanadaCities">
+      <EntityTypeMapping TypeName="dbjModel.CanadaCities">
+        <MappingFragment StoreEntitySet="CanadaCities">
+          <ScalarProperty Name="pvId" ColumnName="pvId" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="province" ColumnName="province" />
+          <ScalarProperty Name="cityId" ColumnName="cityId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CanadaPV">
+      <EntityTypeMapping TypeName="dbjModel.CanadaPV">
+        <MappingFragment StoreEntitySet="CanadaPV">
+          <ScalarProperty Name="province" ColumnName="province" />
+          <ScalarProperty Name="pvId" ColumnName="pvId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OfferDate">
+      <EntityTypeMapping TypeName="dbjModel.OfferDate">
+        <MappingFragment StoreEntitySet="OfferDate">
+          <ScalarProperty Name="offerDate" ColumnName="offerDate" />
+          <ScalarProperty Name="pId" ColumnName="pId" />
+          <ScalarProperty Name="dId" ColumnName="dId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
